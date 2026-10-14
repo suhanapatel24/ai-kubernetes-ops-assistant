@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ops-assistant-analysis
+  namespace: ops-assistant
+spec:
+  template:
+    spec:
+      serviceAccountName: ops-assistant
+      restartPolicy: Never
+      containers:
+        - name: analyzer
+          image: ghcr.io/suhanapatel24/ai-kubernetes-ops-assistant:latest
+          args: ["--namespace", "ops-assistant"]
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
